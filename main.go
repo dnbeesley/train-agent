@@ -54,7 +54,7 @@ func main() {
 	var callback = func(line []byte) {
 		err = stompConnection.Send("/topic/response", line, "application/json", "")
 		if err != nil {
-			log.Panicln("Error writing serial output to response topic")
+			log.Println("Error writing serial output to response topic")
 			log.Panic(err)
 		}
 	}
@@ -95,7 +95,7 @@ func listenForMotorCommands(
 		if ok {
 			err := json.Unmarshal([]byte(msg.Body), &mc)
 			if err != nil {
-				log.Panicln("Could not process message body from: /topic/motor-control")
+				log.Println("Could not process message body from: /topic/motor-control")
 				log.Panic(err)
 				continue
 			}
@@ -108,7 +108,7 @@ func listenForMotorCommands(
 
 			_, err = serialConnection.WriteMotorCommand(mc.Channel, mc.Speed, mc.IsReversed)
 			if err != nil {
-				log.Panicln("Error writing motor control command to serial port")
+				log.Println("Error writing motor control command to serial port")
 				log.Panic(err)
 			}
 		}
@@ -134,7 +134,7 @@ func listenForSensorCommands(
 		if ok {
 			err := json.Unmarshal([]byte(msg.Body), &sensor)
 			if err != nil {
-				log.Panicln("Could not process message body from: /topic/sensor")
+				log.Println("Could not process message body from: /topic/sensor")
 				log.Panic(err)
 				continue
 			}
@@ -142,7 +142,7 @@ func listenForSensorCommands(
 			log.Println(fmt.Sprintf("Reading from sensor %x", sensor.Address))
 			_, err = serialConnection.WriteSensorReadCommand(sensor.Address, 2)
 			if err != nil {
-				log.Panicln("Error writing sesnor read command to serial port")
+				log.Println("Error writing sesnor read command to serial port")
 				log.Panic(err)
 			}
 		}
@@ -168,7 +168,7 @@ func listenForTurnOutCommands(
 		if ok {
 			err := json.Unmarshal([]byte(msg.Body), &turnOut)
 			if err != nil {
-				log.Panicln("Could not process message body from: /topic/turn-out")
+				log.Println("Could not process message body from: /topic/turn-out")
 				log.Panic(err)
 				continue
 			}
@@ -182,7 +182,7 @@ func listenForTurnOutCommands(
 			}
 
 			if err != nil {
-				log.Panicln("Error writing turn out command to serial port")
+				log.Println("Error writing turn out command to serial port")
 				log.Panic(err)
 			}
 		}
