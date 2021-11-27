@@ -140,7 +140,7 @@ func listenForSensorCommands(
 			}
 
 			log.Println(fmt.Sprintf("Reading from sensor %x", sensor.Address))
-			_, err = serialConnection.WriteSensorReadCommand(sensor.Address, 2)
+			_, err = serialConnection.WriteSensorReadCommand(sensor.Address, sensor.Length)
 			if err != nil {
 				log.Println("Error writing sesnor read command to serial port")
 				log.Panic(err)

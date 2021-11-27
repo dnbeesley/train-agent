@@ -61,7 +61,7 @@ func (sc *SerialConnection) Listen(callback func(line []byte)) (err error) {
 			var state State
 			var err = json.Unmarshal(line, &state)
 			if err == nil {
-				log.Println(fmt.Sprintf("Respose for cmd = %d", state.Cmd))
+				log.Println(fmt.Sprintf("Response for cmd = %d", state.Cmd))
 				callback(line)
 				if state.Cmd == 4 {
 					var sensorState SensorState
@@ -109,10 +109,11 @@ func (sc *SerialConnection) WriteSensorReadCommand(
 	address uint8,
 	length uint8,
 ) (n int, err error) {
-	var output = make([]byte, 3)
+	var output = make([]byte, 4)
 	output[0] = 0x04
 	output[1] = address
-	output[2] = 0xFF
+	output[2] = length
+	output[3] = 0xFF
 	return sc.SerialPort.Write(output)
 }
 

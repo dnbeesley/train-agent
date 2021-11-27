@@ -10,6 +10,7 @@ type MotorControl struct {
 type Sensor struct {
 	Id      int   `json:"id"`
 	Address uint8 `json:"address"`
+	Length  uint8 `json:"length"`
 }
 
 type TurnOut struct {
